@@ -232,7 +232,167 @@ if ($con->query($custprof) === TRUE) {
 	echo "Error creating table: " . $con->error;
 }
 
+//create CustomerRating
+$custrat = "CREATE TABLE `CustomerRating` (
+  `rating_id` int(11) NOT NULL,
+  `rater_email` varchar(45) NOT NULL,
+  PRIMARY KEY (`rating_id`,`rater_email`),
+  KEY `email_idx` (`rater_email`),
+  CONSTRAINT `rating_idY` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`rating_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rater_emailA` FOREIGN KEY (`rater_email`) REFERENCES `CustomerNoProfile` (`noprofile_email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
 
+//check connection
+if ($con->query($custrat) === TRUE) {
+	echo "Table CustomerRating created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create CustomerReviewer
+$custrev = "CREATE TABLE `CustomerReviewer` (
+  `comment_number` int(11) NOT NULL,
+  `customer_email` varchar(45) NOT NULL,
+  PRIMARY KEY (`comment_number`,`customer_email`),
+  KEY `customer_email9_idx` (`customer_email`),
+  CONSTRAINT `comment_numberG` FOREIGN KEY (`comment_number`) REFERENCES `Comments` (`comment_number`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `customer_email9` FOREIGN KEY (`customer_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($custrev) === TRUE) {
+	echo "Table CustomerReviewer created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+
+//create DealAccepting
+$dealacc = "CREATE TABLE `DealAccepting` (
+  `customer_email` varchar(45) NOT NULL,
+  `deal_number` int(11) NOT NULL,
+  PRIMARY KEY (`customer_email`,`deal_number`),
+  KEY `deal_numberA_idx` (`deal_number`),
+  CONSTRAINT `customer_email2` FOREIGN KEY (`customer_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `deal_numberA` FOREIGN KEY (`deal_number`) REFERENCES `Deals` (`deal_number`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($dealacc) === TRUE) {
+	echo "Table DealAccepting created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create DealOffering
+$dealoff = "CREATE TABLE `DealOffering` (
+  `business_number` int(11) NOT NULL,
+  `deal_number` int(11) NOT NULL,
+  PRIMARY KEY (`business_number`,`deal_number`),
+  KEY `deal_numberB_idx` (`deal_number`),
+  CONSTRAINT `business_number7` FOREIGN KEY (`business_number`) REFERENCES `BusinessProfile` (`business_number`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `deal_numberB` FOREIGN KEY (`deal_number`) REFERENCES `Deals` (`deal_number`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($dealoff) === TRUE) {
+	echo "Table DealOffering created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create Deals
+$dealsql = "CREATE TABLE `Deals` (
+  `deal_number` int(11) NOT NULL,
+  `expiration_date` datetime NOT NULL,
+  `monetary_value` int(11) NOT NULL,
+  PRIMARY KEY (`deal_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($dealsql) === TRUE) {
+	echo "Table Deals created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create friends
+$friendsql = "CREATE TABLE `friends` (
+  `friend1_email` varchar(45) NOT NULL,
+  `friend2_email` varchar(45) NOT NULL,
+  PRIMARY KEY (`friend1_email`,`friend2_email`),
+  KEY `friend2_emailB_idx` (`friend2_email`),
+  CONSTRAINT `friend1_emailA` FOREIGN KEY (`friend1_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `friend2_emailB` FOREIGN KEY (`friend2_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($friendsql) === TRUE) {
+	echo "Table friends created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create messages
+$messagesql = "CREATE TABLE `messages` (
+  `Message_number` int(11) NOT NULL,
+  `message_sender_email` varchar(45) NOT NULL,
+  `message_receiver_email` varchar(45) NOT NULL,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `message_content` varchar(200) NOT NULL,
+  PRIMARY KEY (`Message_number`),
+  KEY `sender_emailA_idx` (`message_sender_email`),
+  KEY `message_receiver_emailA_idx` (`message_receiver_email`),
+  CONSTRAINT `message_sender_emailA` FOREIGN KEY (`message_sender_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `message_receiver_emailA` FOREIGN KEY (`message_receiver_email`) REFERENCES `CustomerProfile` (`customerprofile_email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($messagesql) === TRUE) {
+	echo "Table messages created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create rating
+$rat = "CREATE TABLE `rating` (
+  `rating_id` int(11) NOT NULL,
+  `date_created` date NOT NULL,
+  `number_of_stars` int(11) NOT NULL,
+  PRIMARY KEY (`rating_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($rat) === TRUE) {
+	echo "Table rating created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
+
+//create SocialAtmosphere
+$socatm = "CREATE TABLE `SocialAtmosphere` (
+  `atmosphere_id` int(11) NOT NULL,
+  `noise_level` int(11) NOT NULL,
+  `group_friendly` varchar(4) DEFAULT NULL,
+  `family_friendly` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`atmosphere_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+";
+
+//check connection
+if ($con->query($socatm) === TRUE) {
+	echo "Table SocialAtmosphere created successfully";
+} else {
+	echo "Error creating table: " . $con->error;
+}
 
 $con->close();
 ?>
