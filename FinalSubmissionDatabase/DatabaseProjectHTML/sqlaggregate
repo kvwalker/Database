@@ -1,0 +1,25 @@
+SELECT business_number 
+FROM BusinessProfile
+WHERE business_name = '$vendor'
+$bizNum = $row['business_number'];
+
+SELECT comment_number
+FROM BusinessCommented
+WHERE business_number = '$bizNum'
+$comNum = $row['comment_number'];
+
+SELECT rating_id
+FROM BusinessRated
+WHERE business_number = '$bizNum'
+$ratingid = $row['rating_id'];
+
+SELECT avg(number_of_stars)
+FROM(
+SELECT number_of_stars
+FROM Comments
+WHERE comment_number = '$comNum'
+UNION 
+SELECT number_of_stars
+FROM Rating
+WHERE rating_id = '$ratingid')
+GROUP BY number_of_stars

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+	Telephasic by HTML5 UP	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)-->
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Endorse a Business</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.dropotron.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-layers.min.js"></script>
+    <script src="js/init.js"></script> <noscript>
+			<link rel="stylesheet" href="css/skel.css">
+			<link rel="stylesheet" href="css/style.css">
+		</noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+  </head>
+  <body class="right-sidebar">
+    <!-- Header -->
+    <div id="header-wrapper">
+      <div id="header" class="container">
+        <!-- Logo -->
+        <h1 id="logo"><a href="index.html">Eat Here</a></h1>
+        <!-- Nav -->
+        <nav style="top: 0px; height: 19px;" id="nav">
+          <ul>
+            <li>
+              <form method="post" action="Search.php"><input name = "business_name" placeholder="Search business" required="" type="text"></form>
+            </li>
+            <li class="break"><br>
+            </li>
+            <li class="break"> Welcome!
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div id="footer-wrapper">
+      <div id="footer" class="container">
+        <header class="major">
+          <h2 style="text-align: center;"><?php echo htmlspecialchars($_GET["name"])?></h2>
+            <form method="post" action="Endorse.php">
+                    <h3>Endorse a Business</h3>
+                    <div class="row 50%">
+                      <div class="6u 12u(mobile)"> <input name="email" placeholder="Owner Email"
+                          type="text">
+                      </div>
+                      <div class="6u 12u(mobile)"> <input name="name" placeholder="Business Name"
+                          type="text">
+                      </div>
+                    </div>
+                    <div class="row 50%">
+                      <div class="12u">
+                        <ul class="actions">
+                          <li><input value="Endorse" type="submit"></li>
+                          <li><input value="Cancel" type="reset"></li>
+                        </ul>
+                      </div>
+                    </div>
+            </form>
+          </header>
+        </div>
+      </div>
+    </body>
+</html>
+
